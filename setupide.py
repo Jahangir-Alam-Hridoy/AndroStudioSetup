@@ -131,7 +131,7 @@ def index():
         </style>
     </head>
     <body>
-        <div class="header">📱 Mobile Android IDE - Setup Wizard</div>
+        <div class="header">AndroStudio - Setup Wizard</div>
         <div class="container">
             <h2>Installing Required Tools</h2>
             <div class="progress-container">
