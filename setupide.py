@@ -10,16 +10,11 @@ app = Flask(__name__)
 COMMANDS = [
     "echo '🚀 Starting Termux environment setup for AndroStudio...'",
 
-    "echo '📦 Updating package lists and upgrading system...'",
-    "pkg update -y && pkg upgrade -y",
-
     "mkdir -p ~/android-sdk",
     "mkdir -p ~/AndroStudioProject",
     
-    "echo '🐍 Installing Python and pip, JDK, Kotlin, NodeJS, Git, Curl, Wget etc...'",
     "pkg install -y python python3 git wget curl unzip openjdk-17 kotlin nodejs",
 
-    "echo '📥 Cloning AndroStudio repository...'",
     "git clone https://github.com/Jahangir-Alam-Hridoy/AndroStudio.git",
 
     "echo '🔧 Creating SDK directory...'",
@@ -136,7 +131,7 @@ def index():
             <div class="progress-text" id="progressText">0% Complete</div>
             <pre id="terminal">Initializing setup process...\n</pre>
         </div>
-        <div class="footer">Powered by Android IDE Project</div>
+        <div class="footer">Powered by AndroStudio</div>
 
         <script>
             const terminal = document.getElementById('terminal');
