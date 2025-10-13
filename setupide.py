@@ -14,49 +14,45 @@ COMMANDS = [
     "pkg update -y && pkg upgrade -y",
 
     "mkdir -p ~/android-sdk",
-
     "mkdir -p ~/AndroStudioProject",
-    "echo '🐍 Installing Python and pip...'",
-    "pkg install -y python python3",
-
-    "echo '🧰 Installing essential utilities (git, wget, curl, unzip)...'",
-    "pkg install -y git wget curl unzip",
     
+    "echo '🐍 Installing Python and pip, JDK, Kotlin, NodeJS, Git, Curl, Wget etc...'",
+    "pkg install -y python python3 git wget curl unzip openjdk-17 kotlin nodejs",
+
+    "echo '📥 Cloning AndroStudio repository...'",
     "git clone https://github.com/Jahangir-Alam-Hridoy/AndroStudio.git",
-    "echo '☕ Installing Java (OpenJDK 17) and Kotlin...'",
-    "pkg install -y openjdk-17",
-    "pkg install -y kotlin",
-    "pkg install -y java",
-    "pkg install -y nodejs",
 
     "echo '🔧 Creating SDK directory...'",
     "SDK_DIR=$HOME/android-sdk && mkdir -p \"$SDK_DIR\" && cd \"$SDK_DIR\"",
 
     "echo '⬇️ Downloading Command-line Tools...'",
-    "wget -q https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O cmdline-tools.zip",
-    "unzip -q cmdline-tools.zip -d cmdline-tools-temp",
-    "mkdir -p cmdline-tools/latest",
-    "mv cmdline-tools-temp/* cmdline-tools/latest/",
-    "rm -rf cmdline-tools.zip cmdline-tools-temp",
+    "wget -q https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O $SDK_DIR/cmdline-tools.zip",
+    "unzip -q $SDK_DIR/cmdline-tools.zip -d $SDK_DIR/cmdline-tools-tmp",
+    "mkdir -p $SDK_DIR/cmdline-tools/latest",
+    "mv $SDK_DIR/cmdline-tools-tmp/* $SDK_DIR/cmdline-tools/latest/",
+    "rm -rf $SDK_DIR/cmdline-tools.zip $SDK_DIR/cmdline-tools-tmp",
 
     "echo '⬇️ Downloading Platform Tools...'",
-    "wget -q https://dl.google.com/android/repository/platform-tools-latest-linux.zip -O platform-tools.zip",
-    "unzip -q platform-tools.zip",
-    "rm platform-tools.zip",
+    "wget -q https://dl.google.com/android/repository/platform-tools-latest-linux.zip -O $SDK_DIR/platform-tools.zip",
+    "unzip -q $SDK_DIR/platform-tools.zip -d $SDK_DIR",
+    "rm $SDK_DIR/platform-tools.zip",
 
     "echo '✅ Setting environment variables...'",
-    # 👉 Full environment setup (added ANDROID_SDK_ROOT + JAVA_HOME + build-tools path)
-    "echo 'export ANDROID_HOME=$HOME/android-sdk' >> ~/.bashrc",
-    "echo 'export ANDROID_SDK_ROOT=$ANDROID_HOME' >> ~/.bashrc",
-    "echo 'export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH' >> ~/.bashrc",
-    "echo 'export JAVA_HOME=$(dirname $(dirname $(which java)))' >> ~/.bashrc",
-    "echo 'for ver in $ANDROID_HOME/build-tools/*; do export PATH=$ver:$PATH; done' >> ~/.bashrc",
-    "echo 'export PATH=$PATH:$JAVA_HOME/bin:$HOME' >> ~/.bashrc",
-    "source ~/.bashrc",
+    "echo '' >> $PREFIX/etc/bash.bashrc",
+    "echo '# AndroStudio Environment Variables' >> $PREFIX/etc/bash.bashrc",
+    "echo 'export ANDROID_HOME=$HOME/android-sdk' >> $PREFIX/etc/bash.bashrc",
+    "echo 'export ANDROID_SDK_ROOT=$ANDROID_HOME' >> $PREFIX/etc/bash.bashrc",
+    "echo 'export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH' >> $PREFIX/etc/bash.bashrc",
+    "echo 'export JAVA_HOME=$(dirname $(dirname $(which java)))' >> $PREFIX/etc/bash.bashrc",
+    "echo 'for ver in $ANDROID_HOME/build-tools/*; do export PATH=$ver:$PATH; done' >> $PREFIX/etc/bash.bashrc",
+    "echo 'export PATH=$PATH:$JAVA_HOME/bin:$HOME' >> $PREFIX/etc/bash.bashrc",
+    "source $PREFIX/etc/bash.bashrc",
 
     "echo '📦 Installing SDK Platforms and Build-tools...'",
     "yes | sdkmanager --sdk_root=$HOME/android-sdk 'platform-tools' 'platforms;android-35' 'build-tools;35.0.0'",
+    "yes | sdkmanager --licenses",
 
+    "echo '🐍 Installing Python dependencies...'",
     "pip install flask flask-cors werkzeug ansi2html",
 
     "echo '🎉 Android SDK setup complete! Everything is ready to run AndroStudio!'"
