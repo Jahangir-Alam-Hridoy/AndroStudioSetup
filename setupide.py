@@ -7,48 +7,59 @@ import os
 app = Flask(__name__)
 
 # ================= Commands to run =================
+
 COMMANDS = [
     "echo '🚀 Starting Termux environment setup for AndroStudio...'",
 
-    "mkdir -p ~/android-sdk",
+    # 1️⃣ Directories
+    "mkdir -p ~/android-sdk/cmdline-tools/latest",
     "mkdir -p ~/AndroStudioProject",
     
-    "pkg install -y python python3 git wget curl unzip openjdk-17 kotlin nodejs",
+    "pkg install -y python",
+    "pkg install -y python3",
+    "pkg install -y wget",
+    "pkg install -y curl",
+    "pkg install -y unzip",
+    "pkg install -y openjdk-17",
+    "pkg install -y kotlin",
+    "pkg install -y gradle",
+    "pkg install -y file",
 
+    # 3️⃣ Clone AndroStudio repo
     "git clone https://github.com/Jahangir-Alam-Hridoy/AndroStudio.git",
 
-    "echo '🔧 Creating SDK directory...'",
-    "SDK_DIR=$HOME/android-sdk && mkdir -p \"$SDK_DIR\" && cd \"$SDK_DIR\"",
+      # 4️⃣ Download Command-line Tools (fixed path)
+    "cd ~/android-sdk/cmdline-tools/latest && curl -O https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip",
 
-    "echo '⬇️ Downloading Command-line Tools...'",
-    "wget -q https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O $SDK_DIR/cmdline-tools.zip",
-    "unzip -q $SDK_DIR/cmdline-tools.zip -d $SDK_DIR/cmdline-tools-tmp",
-    "mkdir -p $SDK_DIR/cmdline-tools/latest",
-    "mv $SDK_DIR/cmdline-tools-tmp/* $SDK_DIR/cmdline-tools/latest/",
-    "rm -rf $SDK_DIR/cmdline-tools.zip $SDK_DIR/cmdline-tools-tmp",
+    # 5️⃣ Unzip with correct structure
+    "cd ~/android-sdk/cmdline-tools/latest && unzip -q commandlinetools-linux-11076708_latest.zip -d cmdline-tools-temp",
+    "cd ~/android-sdk/cmdline-tools/latest && mv cmdline-tools-temp/cmdline-tools/* .",
+    "cd ~/android-sdk/cmdline-tools/latest && rm -rf cmdline-tools-temp commandlinetools-linux-11076708_latest.zip",
 
-    "echo '⬇️ Downloading Platform Tools...'",
-    "wget -q https://dl.google.com/android/repository/platform-tools-latest-linux.zip -O $SDK_DIR/platform-tools.zip",
-    "unzip -q $SDK_DIR/platform-tools.zip -d $SDK_DIR",
-    "rm $SDK_DIR/platform-tools.zip",
 
+    # 6️⃣ Environment variables
     "echo '✅ Setting environment variables...'",
-    "echo '' >> $PREFIX/etc/bash.bashrc",
-    "echo '# AndroStudio Environment Variables' >> $PREFIX/etc/bash.bashrc",
-    "echo 'export ANDROID_HOME=$HOME/android-sdk' >> $PREFIX/etc/bash.bashrc",
-    "echo 'export ANDROID_SDK_ROOT=$ANDROID_HOME' >> $PREFIX/etc/bash.bashrc",
-    "echo 'export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH' >> $PREFIX/etc/bash.bashrc",
-    "echo 'export JAVA_HOME=$(dirname $(dirname $(which java)))' >> $PREFIX/etc/bash.bashrc",
-    "echo 'for ver in $ANDROID_HOME/build-tools/*; do export PATH=$ver:$PATH; done' >> $PREFIX/etc/bash.bashrc",
-    "echo 'export PATH=$PATH:$JAVA_HOME/bin:$HOME' >> $PREFIX/etc/bash.bashrc",
-    "source $PREFIX/etc/bash.bashrc",
+    "echo 'export ANDROID_HOME=$HOME/android-sdk' >> ~/.bashrc",
+    "echo 'export ANDROID_SDK_ROOT=$ANDROID_HOME' >> ~/.bashrc",
+    "echo 'export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH' >> ~/.bashrc",
+    "echo 'export JAVA_HOME=$(dirname $(dirname $(which java)))' >> ~/.bashrc",
+    "echo 'for ver in $ANDROID_HOME/build-tools/*; do export PATH=$ver:$PATH; done' >> ~/.bashrc",
+    "echo 'export PATH=$PATH:$JAVA_HOME/bin:$HOME' >> ~/.bashrc",
+    "source ~/.bashrc",
 
+    # 7️⃣ Install SDK packages
     "echo '📦 Installing SDK Platforms and Build-tools...'",
-    "yes | sdkmanager --sdk_root=$HOME/android-sdk 'platform-tools' 'platforms;android-35' 'build-tools;35.0.0'",
-    "yes | sdkmanager --licenses",
+    "sdkmanager --sdk_root=$ANDROID_HOME 'platform-tools' 'platforms;android-35' 'build-tools;35.0.0'",
 
+    # 8️⃣ Accept licenses
+    "yes | sdkmanager --licenses --sdk_root=$ANDROID_HOME",
+
+    # 9️⃣ Python dependencies
     "echo '🐍 Installing Python dependencies...'",
-    "pip install flask flask-cors werkzeug ansi2html",
+    "pip install flask",
+    "pip install flask-cors",
+    "pip install werkzeug",
+    "pip install ansi2html",
 
     "echo '🎉 Android SDK setup complete! Everything is ready to run AndroStudio!'"
 ]
