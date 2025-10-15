@@ -11,8 +11,7 @@ app = Flask(__name__)
 COMMANDS = [
     "echo '🚀 Starting Termux environment setup for AndroStudio...'",
 
-    # 1️⃣ Directories
-    "mkdir -p ~/android-sdk/cmdline-tools/latest",
+    # 1️⃣ Directorie 
     "mkdir -p ~/AndroStudioProject",
     
     "pkg install -y python",
