@@ -22,18 +22,21 @@ COMMANDS = [
     "pkg install -y openjdk-17",
     "pkg install -y gradle",
     "pkg install -y file",
-    "pip install gdown",
+    "pkg install -y which",
+    "pkg install -y aria2",
     "pip install flask",
     "pip install flask-cors",
     "pip install werkzeug",
     "pip install ansi2html",
+
+ "https://drive.google.com/uc?id=YOUR_FILE_ID" -o sdk.zip
 
     # 3️⃣ Clone AndroStudio repo
     "git clone https://github.com/Jahangir-Alam-Hridoy/AndroStudio.git",
 
       # 4️⃣ Download android-sdk
       
-      "gdown 'https://drive.google.com/uc?id=14PCNnbftUmbUXX0RCU6oTGv1JUVS49PR'",
+      "aria2c -c -x 16 'https://drive.google.com/uc?id=14PCNnbftUmbUXX0RCU6oTGv1JUVS49PR'",
       # unzip android-sdk
       "unzip android-sdk-aarch64.zip",
 
