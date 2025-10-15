@@ -22,11 +22,11 @@ COMMANDS = [
     "pkg install -y openjdk-17",
     "pkg install -y gradle",
     "pkg install -y file",
-    "pip install -y gdown",
-    "pip install -y flask",
-    "pip install -y flask-cors",
-    "pip install -y werkzeug",
-    "pip install -y ansi2html",
+    "pip install gdown",
+    "pip install flask",
+    "pip install flask-cors",
+    "pip install werkzeug",
+    "pip install ansi2html",
 
     # 3️⃣ Clone AndroStudio repo
     "git clone https://github.com/Jahangir-Alam-Hridoy/AndroStudio.git",
