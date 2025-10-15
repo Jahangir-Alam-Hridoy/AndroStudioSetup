@@ -20,7 +20,6 @@ COMMANDS = [
     "pkg install -y curl",
     "pkg install -y unzip",
     "pkg install -y openjdk-17",
-    "pkg install -y kotlin",
     "pkg install -y gradle",
     "pkg install -y file",
     "pip install -y gdown",
