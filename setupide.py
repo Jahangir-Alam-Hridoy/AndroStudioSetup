@@ -24,17 +24,20 @@ COMMANDS = [
     "pkg install -y kotlin",
     "pkg install -y gradle",
     "pkg install -y file",
+    "pip install -y gdown",
+    "pip install -y flask",
+    "pip install -y flask-cors",
+    "pip install -y werkzeug",
+    "pip install -y ansi2html",
 
     # 3️⃣ Clone AndroStudio repo
     "git clone https://github.com/Jahangir-Alam-Hridoy/AndroStudio.git",
 
-      # 4️⃣ Download Command-line Tools (fixed path)
-    "cd ~/android-sdk/cmdline-tools/latest && curl -O https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip",
-
-    # 5️⃣ Unzip with correct structure
-    "cd ~/android-sdk/cmdline-tools/latest && unzip -q commandlinetools-linux-11076708_latest.zip -d cmdline-tools-temp",
-    "cd ~/android-sdk/cmdline-tools/latest && mv cmdline-tools-temp/cmdline-tools/* .",
-    "cd ~/android-sdk/cmdline-tools/latest && rm -rf cmdline-tools-temp commandlinetools-linux-11076708_latest.zip",
+      # 4️⃣ Download android-sdk
+      
+      "gdown 'https://drive.google.com/uc?id=14PCNnbftUmbUXX0RCU6oTGv1JUVS49PR'",
+      # unzip android-sdk
+      "unzip android-sdk-aarch64.zip",
 
 
     # 6️⃣ Environment variables
@@ -47,19 +50,7 @@ COMMANDS = [
     "echo 'export PATH=$PATH:$JAVA_HOME/bin:$HOME' >> ~/.bashrc",
     "source ~/.bashrc",
 
-    # 7️⃣ Install SDK packages
-    "echo '📦 Installing SDK Platforms and Build-tools...'",
-    "sdkmanager --sdk_root=$ANDROID_HOME 'platform-tools' 'platforms;android-35' 'build-tools;35.0.0'",
 
-    # 8️⃣ Accept licenses
-    "yes | sdkmanager --licenses --sdk_root=$ANDROID_HOME",
-
-    # 9️⃣ Python dependencies
-    "echo '🐍 Installing Python dependencies...'",
-    "pip install flask",
-    "pip install flask-cors",
-    "pip install werkzeug",
-    "pip install ansi2html",
 
     "echo '🎉 Android SDK setup complete! Everything is ready to run AndroStudio!'"
 ]
